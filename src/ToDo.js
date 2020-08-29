@@ -16,17 +16,15 @@ class ToDo extends React.Component {
     if (event.key === 'Enter') {
       this.setState((prevState) => {
         return {
-          toDos: prevState.toDos.concat([
-            { task: prevState.value, done: false },
-          ]),
+          toDos: [...prevState.toDos, prevState.value],
           value: '',
         };
       });
     }
   }
   render() {
-    const toDoList = this.state.toDos.map(({ task, done }, index) => (
-      <Task task={task} done={done} key={index} />
+    const toDoList = this.state.toDos.map((task, index) => (
+      <Task task={task} key={index} />
     ));
     return (
       <div>
