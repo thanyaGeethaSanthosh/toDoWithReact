@@ -1,4 +1,4 @@
-##Simple To Do app
+Simple To Do app
 
 Single list todo
 Add new task by typing it in input box and press enter
