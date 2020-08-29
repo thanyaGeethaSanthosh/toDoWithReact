@@ -12,11 +12,23 @@ code {
     monospace;
 }
 
+.to-do {
+  text-align: center;
+  margin: auto;
+  width: 20%;
+}
+
+.input-task {
+  width: 100%;
+}
+
 .finished {
+  text-align: left;
   border-left: 1vh solid mediumseagreen;
   text-decoration: line-through;
 }
 
 .not-finished {
+  text-align: left;
   border-left: 1vh solid lightblue;
 }
