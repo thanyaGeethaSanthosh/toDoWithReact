@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.finished {
+  border-left: 1vh solid mediumseagreen;
+}
+
+.not-finished {
+  border-left: 1vh solid lightblue;
+}
