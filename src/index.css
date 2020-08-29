@@ -14,6 +14,7 @@ code {
 
 .finished {
   border-left: 1vh solid mediumseagreen;
+  text-decoration: line-through;
 }
 
 .not-finished {
