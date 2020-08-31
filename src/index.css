@@ -28,7 +28,12 @@ code {
   text-decoration: line-through;
 }
 
-.not-finished {
+.doing-todo {
+  text-align: left;
+  border-left: 1vh solid orange;
+}
+
+.default-todo {
   text-align: left;
   border-left: 1vh solid lightblue;
 }

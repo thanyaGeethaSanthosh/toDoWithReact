@@ -30,7 +30,7 @@ class ToDo extends React.Component {
       <div>
         {toDoList}
         <input
-          class='input-task'
+          className='input-task'
           value={this.state.value}
           onKeyDown={this.keyPress}
           onChange={this.handleChange}
