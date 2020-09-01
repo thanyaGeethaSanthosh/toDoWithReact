@@ -1,40 +1,31 @@
 import React from 'react';
 import Task from './Task';
+import InputText from './InputText';
 
 class ToDo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: '', toDos: [] };
-    this.handleChange = this.handleChange.bind(this);
-    this.keyPress = this.keyPress.bind(this);
-  }
-  handleChange(event) {
-    this.setState({ value: event.target.value });
+    this.state = { toDos: [] };
+    this.addTask = this.addTask.bind(this);
   }
 
-  keyPress(event) {
-    if (event.key === 'Enter') {
-      this.setState((prevState) => {
-        return {
-          toDos: [...prevState.toDos, prevState.value],
-          value: '',
-        };
-      });
-    }
+  addTask(taskDescription) {
+    const task = { description: taskDescription };
+    this.setState((prevState) => {
+      return {
+        toDos: [...prevState.toDos, task],
+      };
+    });
   }
+
   render() {
-    const toDoList = this.state.toDos.map((task, index) => (
-      <Task task={task} key={index} />
+    const toDoList = this.state.toDos.map(({ description }, index) => (
+      <Task task={description} key={index} />
     ));
     return (
       <div>
         {toDoList}
-        <input
-          className='input-task'
-          value={this.state.value}
-          onKeyDown={this.keyPress}
-          onChange={this.handleChange}
-        />
+        <InputText submitHandler={this.addTask} />
       </div>
     );
   }
