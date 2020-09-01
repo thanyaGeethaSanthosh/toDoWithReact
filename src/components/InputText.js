@@ -3,7 +3,7 @@ import React from 'react';
 class InputText extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: '' };
+    this.state = { value: this.props.defaultValue || '' };
     this.handleChange = this.handleChange.bind(this);
     this.keyPress = this.keyPress.bind(this);
   }

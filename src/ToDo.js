@@ -6,9 +6,11 @@ import { defaultState, nextState } from './components/TaskStatus';
 class ToDo extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { toDos: [] };
+    this.state = { titleBar: { title: 'TODO', editable: false }, toDos: [] };
     this.addTask = this.addTask.bind(this);
     this.changeTaskState = this.changeTaskState.bind(this);
+    this.changeTitle = this.changeTitle.bind(this);
+    this.toggleEditable = this.toggleEditable.bind(this);
   }
 
   addTask(taskDescription) {
@@ -18,6 +20,20 @@ class ToDo extends React.Component {
         toDos: [...prevState.toDos, task],
       };
     });
+  }
+
+  changeTitle(title) {
+    const { editable } = this.state.titleBar;
+    this.setState((prevState) => ({
+      titleBar: { title, editable: !editable },
+    }));
+  }
+
+  toggleEditable(event) {
+    const { title, editable } = this.state.titleBar;
+    this.setState((prevState) => ({
+      titleBar: { title, editable: !editable },
+    }));
   }
 
   changeTaskState(event) {
@@ -40,8 +56,15 @@ class ToDo extends React.Component {
         onClickHandler={this.changeTaskState}
       />
     ));
+    const { editable, title } = this.state.titleBar;
+    const todoTitle = editable ? (
+      <InputText defaultValue={title} submitHandler={this.changeTitle} />
+    ) : (
+      <h3 onClick={this.toggleEditable}>{title}</h3>
+    );
     return (
       <div>
+        {todoTitle}
         {toDoList}
         <InputText submitHandler={this.addTask} />
       </div>
