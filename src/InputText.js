@@ -15,6 +15,7 @@ class InputText extends React.Component {
   keyPress(event) {
     if (event.key === 'Enter') {
       this.props.submitHandler(this.state.value);
+      this.setState((prevState) => ({ value: '' }));
     }
   }
 
