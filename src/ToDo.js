@@ -1,7 +1,7 @@
 import React from 'react';
-import Task from './Task';
-import InputText from './InputText';
-import { defaultState, nextState } from './TaskStatus';
+import Task from './components/Task';
+import InputText from './components/InputText';
+import { defaultState, nextState } from './components/TaskStatus';
 
 class ToDo extends React.Component {
   constructor(props) {
