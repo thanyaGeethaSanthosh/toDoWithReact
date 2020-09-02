@@ -2,7 +2,10 @@ import React from 'react';
 
 const CloseButton = (props) => {
   const { onClick } = props;
-  return <div onClick={onClick}>[X]</div>;
+  const image = (
+    <img src={`../public/icons/close.png`} alt='X' onClick={onClick}></img>
+  );
+  return <div className='close-icon'>{image}</div>;
 };
 
 export default CloseButton;

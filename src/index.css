@@ -39,3 +39,8 @@ code {
   display: flex;
   text-align: left;
 }
+
+.close-icon {
+  margin-left: auto;
+  margin-right: 0;
+}
