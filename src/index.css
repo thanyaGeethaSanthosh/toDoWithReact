@@ -23,17 +23,19 @@ code {
 }
 
 .finished {
-  text-align: left;
   border-left: 1vh solid mediumseagreen;
   text-decoration: line-through;
 }
 
 .doing-todo {
-  text-align: left;
   border-left: 1vh solid orange;
 }
 
 .default-todo {
-  text-align: left;
   border-left: 1vh solid lightblue;
+}
+
+.task-div {
+  display: flex;
+  text-align: left;
 }
