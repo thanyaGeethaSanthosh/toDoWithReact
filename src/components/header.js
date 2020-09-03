@@ -1,5 +1,6 @@
 import React from 'react';
 import InputText from './InputText';
+import CloseButton from './closeButton';
 
 class Header extends React.Component {
   constructor(props) {
@@ -25,7 +26,10 @@ class Header extends React.Component {
         submitHandler={this.changeTitle}
       />
     ) : (
-      <h3 onClick={this.toggleEditable}>{this.props.title}</h3>
+      <div className='left-text flex'>
+        <h3 onClick={this.toggleEditable}>{this.props.title}</h3>
+        <CloseButton onClick={this.props.deleteTitle} />
+      </div>
     );
   }
 }

@@ -12,6 +12,7 @@ class ToDo extends React.Component {
     this.changeTaskState = this.changeTaskState.bind(this);
     this.changeTitle = this.changeTitle.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.deleteTitle = this.deleteTitle.bind(this);
   }
 
   addTask(taskDescription) {
@@ -25,6 +26,10 @@ class ToDo extends React.Component {
 
   changeTitle(title) {
     this.setState((prevState) => ({ title }));
+  }
+
+  deleteTitle() {
+    this.setState((prevState) => ({ title: 'TODO' }));
   }
 
   deleteTask(taskId) {
@@ -56,7 +61,11 @@ class ToDo extends React.Component {
     ));
     return (
       <div>
-        <Header title={this.state.title} changeTitle={this.changeTitle} />
+        <Header
+          title={this.state.title}
+          deleteTitle={this.deleteTitle}
+          changeTitle={this.changeTitle}
+        />
         {toDoList}
         <InputText submitHandler={this.addTask} />
       </div>

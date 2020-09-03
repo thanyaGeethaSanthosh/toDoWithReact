@@ -35,8 +35,11 @@ code {
   border-left: 1vh solid lightblue;
 }
 
-.task-div {
+.flex {
   display: flex;
+}
+
+.left-text {
   text-align: left;
 }
 

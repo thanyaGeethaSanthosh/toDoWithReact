@@ -21,7 +21,7 @@ class Task extends React.Component {
     const className = classList[state];
     return (
       <div
-        className='task-div'
+        className='left-text flex'
         onMouseEnter={this.toggleHover}
         onMouseLeave={this.toggleHover}
       >
