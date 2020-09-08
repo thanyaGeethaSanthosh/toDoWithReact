@@ -1,76 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './components/header';
 import Task from './components/Task';
 import InputText from './components/InputText';
 import { defaultState, nextState } from './components/TaskStatus';
 
-class ToDo extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { title: 'TODO', toDos: [] };
-    this.addTask = this.addTask.bind(this);
-    this.changeTaskState = this.changeTaskState.bind(this);
-    this.changeTitle = this.changeTitle.bind(this);
-    this.deleteTask = this.deleteTask.bind(this);
-    this.deleteTitle = this.deleteTitle.bind(this);
-  }
+const ToDo = (props) => {
+  const [title, setTitle] = useState('TODO');
+  const [toDos, setToDOs] = useState([]);
 
-  addTask(taskDescription) {
+  const addTask = (taskDescription) => {
     const task = { description: taskDescription, state: defaultState() };
-    this.setState((prevState) => {
-      return {
-        toDos: [...prevState.toDos, task],
-      };
-    });
-  }
+    setToDOs([...toDos, task]);
+  };
 
-  changeTitle(title) {
-    this.setState((prevState) => ({ title }));
-  }
-
-  deleteTitle() {
-    this.setState((prevState) => ({ title: 'TODO' }));
-  }
-
-  deleteTask(taskId) {
-    const todo = [...this.state.toDos];
+  const changeTitle = (title) => setTitle(title);
+  const deleteTask = (taskId) => {
+    const todo = [...toDos];
     todo.splice(taskId, 1);
-    this.setState((prevState) => ({ toDos: todo }));
-  }
-
-  changeTaskState(event) {
-    const currTask = this.state.toDos[event.target.id];
+    setToDOs(todo);
+  };
+  const changeTaskState = (event) => {
+    const currTask = toDos[event.target.id];
     const state = nextState(currTask.state);
-    const toDos = [...this.state.toDos];
-    toDos[event.target.id].state = state;
-    this.setState((prevState) => {
-      return { toDos };
-    });
-  }
+    const toDo = [...toDos];
+    toDo[event.target.id].state = state;
+    setToDOs(toDo);
+  };
 
-  render() {
-    const toDoList = this.state.toDos.map(({ description, state }, index) => (
-      <Task
-        task={description}
-        state={state}
-        key={index}
-        id={index}
-        deleteTask={this.deleteTask}
-        onClickHandler={this.changeTaskState}
-      />
-    ));
-    return (
-      <div>
-        <Header
-          title={this.state.title}
-          deleteTitle={this.deleteTitle}
-          changeTitle={this.changeTitle}
-        />
-        {toDoList}
-        <InputText submitHandler={this.addTask} />
-      </div>
-    );
-  }
-}
+  const reset = () => {
+    changeTitle('TODO');
+    setToDOs([]);
+  };
+  const toDoList = toDos.map(({ description, state }, index) => (
+    <Task
+      task={description}
+      state={state}
+      key={index}
+      id={index}
+      deleteTask={deleteTask}
+      onClickHandler={changeTaskState}
+    />
+  ));
+  return (
+    <div>
+      <Header title={title} deleteTitle={reset} changeTitle={changeTitle} />
+      {toDoList}
+      <InputText submitHandler={addTask} />
+    </div>
+  );
+};
 
 export default ToDo;
