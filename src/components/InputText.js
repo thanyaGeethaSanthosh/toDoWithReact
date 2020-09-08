@@ -1,33 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-class InputText extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { value: this.props.defaultValue || '' };
-    this.handleChange = this.handleChange.bind(this);
-    this.keyPress = this.keyPress.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({ value: event.target.value });
-  }
-
-  keyPress(event) {
+const InputText = (props) => {
+  const [state, setState] = useState({ value: props.defaultValue || '' });
+  const keyPress = (event) => {
     if (event.key === 'Enter') {
-      this.props.submitHandler(this.state.value);
-      this.setState((prevState) => ({ value: '' }));
+      props.submitHandler(state.value);
+      setState({ value: '' });
     }
-  }
+  };
+  const handleChange = (event) => {
+    setState({ value: event.target.value });
+  };
 
-  render() {
-    return (
-      <input
-        className='input-task'
-        value={this.state.value}
-        onKeyDown={this.keyPress}
-        onChange={this.handleChange}
-      />
-    );
-  }
-}
+  return (
+    <input
+      className='input-task'
+      value={state.value}
+      onKeyDown={keyPress}
+      onChange={handleChange}
+    />
+  );
+};
 export default InputText;
