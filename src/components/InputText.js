@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 
 const InputText = (props) => {
-  const [state, setState] = useState({ value: props.defaultValue || '' });
+  const [value, setValue] = useState(props.defaultValue || '');
   const keyPress = (event) => {
     if (event.key === 'Enter') {
-      props.submitHandler(state.value);
-      setState({ value: '' });
+      props.submitHandler(value);
+      setValue('');
     }
   };
   const handleChange = (event) => {
-    setState({ value: event.target.value });
+    setValue(event.target.value);
   };
 
   return (
     <input
       className='input-task'
-      value={state.value}
+      value={value}
       onKeyDown={keyPress}
       onChange={handleChange}
     />
