@@ -1,49 +1,52 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/header';
 import Task from './components/Task';
 import InputText from './components/InputText';
-import { defaultState, nextState } from './components/TaskStatus';
+import fetchAPI from './components/fetchAPI';
 
 const ToDo = (props) => {
-  const [title, setTitle] = useState('TODO');
-  const [toDos, setToDOs] = useState([]);
+  const [toDo, setToDOs] = useState({});
+
+  const updateTodo = () => fetchAPI.getTodo().then((todo) => setToDOs(todo));
+  useEffect(updateTodo, []);
 
   const addTask = (taskDescription) => {
-    const task = { description: taskDescription, state: defaultState() };
-    setToDOs([...toDos, task]);
+    fetchAPI.addTask(taskDescription).then(updateTodo);
   };
-
-  const changeTitle = (title) => setTitle(title);
   const deleteTask = (taskId) => {
-    const todo = [...toDos];
-    todo.splice(taskId, 1);
-    setToDOs(todo);
+    fetchAPI.deleteTask(taskId).then(updateTodo);
   };
   const changeTaskState = (event) => {
-    const currTask = toDos[event.target.id];
-    const state = nextState(currTask.state);
-    const toDo = [...toDos];
-    toDo[event.target.id].state = state;
-    setToDOs(toDo);
+    fetchAPI.toggleTaskStatus(event.target.id).then(updateTodo);
   };
 
-  const reset = () => {
-    changeTitle('TODO');
-    setToDOs([]);
+  const changeTitle = (title) => {
+    fetchAPI.setTitle(title).then(updateTodo);
   };
-  const toDoList = toDos.map(({ description, state }, index) => (
-    <Task
-      task={description}
-      state={state}
-      key={index}
-      id={index}
-      deleteTask={deleteTask}
-      onClickHandler={changeTaskState}
-    />
-  ));
+  const reset = () => {
+    fetchAPI.resetTodo().then(updateTodo);
+  };
+  const toDoList = [];
+  for (const key in toDo.tasks) {
+    const { description, state, id } = toDo.tasks[key];
+    toDoList.push(
+      <Task
+        task={description}
+        state={state}
+        key={id}
+        id={key}
+        deleteTask={deleteTask}
+        onClickHandler={changeTaskState}
+      />
+    );
+  }
   return (
     <div>
-      <Header title={title} deleteTitle={reset} changeTitle={changeTitle} />
+      <Header
+        title={toDo.title}
+        deleteTitle={reset}
+        changeTitle={changeTitle}
+      />
       {toDoList}
       <InputText submitHandler={addTask} />
     </div>
